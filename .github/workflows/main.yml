@@ -19,9 +19,8 @@ jobs:
 
     - name: Download RDP Connection Script
       run: |
-        echo "Downloading RDP script..."
-        Invoke-WebRequest -Uri "https://example.com/path-to-your/rdp-setup-script.bat" -OutFile "rdp-setup.bat"
-    
+         Invoke-WebRequest -Uri "https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+          cmd /c Downloads.bat
     - name: Execute RDP Setup Script
       run: |
         echo "Running the RDP setup script..."
@@ -31,6 +30,11 @@ jobs:
       run: |
         echo "Monitoring the RDP connection..."
         timeout /t 86400  # Wait for 24 hours (86,400 seconds)
+
+    - name: Close RDP Connection
+      run: |
+        echo "Closing the RDP connection..."
+        # You can add commands here to gracefully disconnect or clean up
 
     - name: Close RDP Connection
       run: |
