@@ -1,0 +1,38 @@
+name: RDP Setup Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-rdp:
+    name: Setup and Connect to RDP
+    runs-on: windows-latest
+    timeout-minutes: 1440  # 24 hours = 1440 minutes
+
+    steps:
+    - name: Prepare Environment
+      run: |
+        echo "Starting RDP setup..."
+        echo "Updating the system and installing essential packages..."
+        # Install any required dependencies
+        choco install -y openssh rdcman
+
+    - name: Download RDP Connection Script
+      run: |
+        echo "Downloading RDP script..."
+        Invoke-WebRequest -Uri "https://example.com/path-to-your/rdp-setup-script.bat" -OutFile "rdp-setup.bat"
+    
+    - name: Execute RDP Setup Script
+      run: |
+        echo "Running the RDP setup script..."
+        cmd /c rdp-setup.bat
+
+    - name: Wait and Monitor
+      run: |
+        echo "Monitoring the RDP connection..."
+        timeout /t 86400  # Wait for 24 hours (86,400 seconds)
+
+    - name: Close RDP Connection
+      run: |
+        echo "Closing the RDP connection..."
+        # You can add commands here to gracefully disconnect or clean up
